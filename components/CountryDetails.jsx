@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./CountryDetail.css";
-import { Link, useParams } from "react-router-dom";
+// FIX 1: Consolidated all needed imports into one line
+import { Link, useParams, useNavigate } from "react-router-dom"; 
 import { useTheme } from "../hooks/useTheme";
 import CountryDetailShimmer from "./CountiresListShimmar";
 
 export default function CountryDetail() {
   const [isDark] = useTheme();
+  // FIX 2: Initialized the useNavigate hook
+  const navigate = useNavigate(); 
   const params = useParams();
   const countryName = params.country;
   const [countryData, setCountryData] = useState(null);
@@ -62,7 +65,8 @@ export default function CountryDetail() {
   ) : (
     <main className={`${isDark ? "dark" : ""}`}>
       <div className="country-details-container">
-        <span className="back-button" onClick={() => history.back()}>
+        {/* FIX 3: Used navigate(-1) to go back */}
+        <span className="back-button" onClick={() => navigate(-1)}>
           <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
         </span>
 
